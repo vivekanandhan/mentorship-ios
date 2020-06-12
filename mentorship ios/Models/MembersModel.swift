@@ -54,7 +54,7 @@ final class MembersModel: ObservableObject {
         return "Skills: \(skills)"
     }
     
-    func sendRequest(menteeID: Int, mentorID: Int, endDate: Int, notes: String) {
+    func sendRequest(menteeID: Int, mentorID: Int, endDate: Double, notes: String) {
         //token
         guard let token = try? KeychainManager.readKeychain() else {
             return
@@ -112,7 +112,7 @@ final class MembersModel: ObservableObject {
     struct SendRequestUploadData: Encodable {
         var mentorID: Int
         var menteeID: Int
-        var endDate: Int
+        var endDate: Double
         var notes: String
         
         enum CodingKeys: String, CodingKey {

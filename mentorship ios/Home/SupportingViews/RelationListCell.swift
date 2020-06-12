@@ -18,7 +18,8 @@ struct RelationListCell: View {
         HStack {
             Image(systemName: systemImageName)
                 .foregroundColor(imageColor)
-                .font(.headline)
+                .padding(.trailing, DesignConstants.Padding.listCellFrameExpansion)
+                .font(.system(size: 20))
             
             Text(title)
             
@@ -31,6 +32,6 @@ struct RelationListCell: View {
 
 struct RelationCell_Previews: PreviewProvider {
     static var previews: some View {
-        RelationListCell(systemImageName: "circle.fill", imageColor: .blue, title: "Accepted", count: 10)
+        RelationListCell(systemImageName: "xmark.circle.fill", imageColor: .blue, title: "Accepted", count: 10)
     }
 }

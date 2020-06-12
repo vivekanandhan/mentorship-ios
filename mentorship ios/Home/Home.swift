@@ -19,21 +19,23 @@ struct Home: View {
         NavigationView {
             List {
                 //Top space
-//                Section {
-//                    EmptyView()
-//                }
+                Section {
+                    EmptyView()
+                }
                 
                 //Relation dashboard list
                 Section {
-                    ForEach(0..<5) { i in
-                        RelationListCell(
-                            systemImageName: self.relationsData.relationImageName[i],
-                            imageColor: self.relationsData.relationImageColor[i],
-                            title: self.relationsData.relationTitle[i],
-                            count: self.relationsData.relationCount[i]
-                        )
+                    ForEach(0 ..< relationsData.relationTitle.count) { i in
+                        NavigationLink(destination: Text("Hi")) {
+                            RelationListCell(
+                                systemImageName: self.relationsData.relationImageName[i],
+                                imageColor: self.relationsData.relationImageColor[i],
+                                title: self.relationsData.relationTitle[i],
+                                count: self.relationsData.relationCount[i]
+                            )
+                                .padding(.vertical, DesignConstants.Padding.listCellFrameExpansion)
+                        }
                     }
-                    
                 }
                 
             }
