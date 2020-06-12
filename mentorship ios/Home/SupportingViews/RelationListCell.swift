@@ -18,14 +18,16 @@ struct RelationListCell: View {
         HStack {
             Image(systemName: systemImageName)
                 .foregroundColor(imageColor)
-                .padding(.trailing, DesignConstants.Padding.listCellFrameExpansion)
+                .padding(.trailing, DesignConstants.Padding.insetListCellFrameExpansion)
                 .font(.system(size: 20))
             
             Text(title)
+                .font(.subheadline)
             
             Spacer()
             
             Text(String(count))
+                .font(.subheadline)
         }
     }
 }

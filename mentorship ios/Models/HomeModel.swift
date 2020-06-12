@@ -14,6 +14,7 @@ final class HomeModel: ObservableObject {
     @Published var homeResponseData = HomeResponseData(as_mentor: nil, as_mentee: nil)
     @Published var relationsListData = RelationsListData()
     var profileModel = ProfileModel()
+    var isLoading: Bool = false
     private var cancellable: AnyCancellable?
     
     // MARK: - Functions
@@ -21,6 +22,8 @@ final class HomeModel: ObservableObject {
         guard let token = try? KeychainManager.readKeychain() else {
             return
         }
+        
+        isLoading = true
         
         cancellable = NetworkManager.callAPI(urlString: URLStringConstants.Users.home, token: token)
             .receive(on: RunLoop.main)
@@ -34,7 +37,38 @@ final class HomeModel: ObservableObject {
                 print(home)
                 print(profile)
                 self.profileModel.saveProfile(profile: profile)
+                self.updateCount(homeData: home)
+                self.isLoading = false
             }
+    }
+    
+    func updateCount(homeData: HomeResponseData) {
+        var pendingCount = homeData.as_mentee?.sent?.pending?.count ?? 0
+        pendingCount += homeData.as_mentee?.received?.pending?.count ?? 0
+        pendingCount += homeData.as_mentor?.sent?.pending?.count ?? 0
+        pendingCount += homeData.as_mentor?.received?.pending?.count ?? 0
+        
+        var acceptedCount = homeData.as_mentee?.sent?.accepted?.count ?? 0
+        acceptedCount += homeData.as_mentee?.received?.accepted?.count ?? 0
+        acceptedCount += homeData.as_mentor?.sent?.accepted?.count ?? 0
+        acceptedCount += homeData.as_mentor?.received?.accepted?.count ?? 0
+        
+        var rejectedCount = homeData.as_mentee?.sent?.rejected?.count ?? 0
+        rejectedCount += homeData.as_mentee?.received?.rejected?.count ?? 0
+        rejectedCount += homeData.as_mentor?.sent?.rejected?.count ?? 0
+        rejectedCount += homeData.as_mentor?.received?.rejected?.count ?? 0
+        
+        var cancelledCount = homeData.as_mentee?.sent?.cancelled?.count ?? 0
+        cancelledCount += homeData.as_mentee?.received?.cancelled?.count ?? 0
+        cancelledCount += homeData.as_mentor?.sent?.cancelled?.count ?? 0
+        cancelledCount += homeData.as_mentor?.received?.cancelled?.count ?? 0
+        
+        var completedCount = homeData.as_mentee?.sent?.completed?.count ?? 0
+        completedCount += homeData.as_mentee?.received?.completed?.count ?? 0
+        completedCount += homeData.as_mentor?.sent?.completed?.count ?? 0
+        completedCount += homeData.as_mentor?.received?.completed?.count ?? 0
+        
+        self.relationsListData.relationCount = [pendingCount, acceptedCount, rejectedCount, cancelledCount, completedCount]
     }
     
     // MARK: - Structures
@@ -124,7 +158,7 @@ final class HomeModel: ObservableObject {
             DesignConstants.Colors.defaultIndigoColor
         ]
         
-        var relationCount = [5, 3, 67, 23, 7]
+        var relationCount = [0, 0, 0, 0, 0]
     }
     
 }

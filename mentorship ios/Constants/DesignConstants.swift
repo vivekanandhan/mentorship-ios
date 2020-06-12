@@ -42,6 +42,7 @@ struct DesignConstants {
         //used to expand frame, eg. of textfield
         static let textFieldFrameExpansion: CGFloat = 10
         static let listCellFrameExpansion: CGFloat = 10
+        static let insetListCellFrameExpansion: CGFloat = 6
     }
 
     struct Width {

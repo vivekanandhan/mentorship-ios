@@ -17,6 +17,7 @@ struct TabBar: View {
                 .tabItem {
                     VStack {
                         Image(systemName: "house.fill")
+                            .imageScale(.large)
                         Text("Home")
                     }
             }.tag(0)
@@ -25,6 +26,7 @@ struct TabBar: View {
                 .tabItem {
                     VStack {
                         Image(systemName: "person.3.fill")
+                            .imageScale(.large)
                         Text("Members")
                     }
             }.tag(1)

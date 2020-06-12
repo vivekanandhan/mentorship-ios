@@ -33,7 +33,8 @@ struct Home: View {
                                 title: self.relationsData.relationTitle[i],
                                 count: self.relationsData.relationCount[i]
                             )
-                                .padding(.vertical, DesignConstants.Padding.listCellFrameExpansion)
+//                                .padding(.vertical, DesignConstants.Padding.insetListCellFrameExpansion)
+                                .opacity(self.homeModel.isLoading ? 0.5 : 1.0)
                         }
                     }
                 }
