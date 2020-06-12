@@ -12,6 +12,7 @@ import Combine
 final class HomeModel: ObservableObject {
     // MARK: - Variables
     @Published var homeResponseData = HomeResponseData()
+    @Published var relationsListData = RelationsListData()
     var profileModel = ProfileModel()
     private var cancellable: AnyCancellable?
     
@@ -38,6 +39,16 @@ final class HomeModel: ObservableObject {
     
     // MARK: - Structures
     struct HomeResponseData: Decodable {
+    }
+    
+    struct RelationsListData {
+        let relationTitle = ["Pending", "Accepted", "Rejected", "Cancelled", "Completed"]
+        
+        let relationImageName = ["arrow.2.circlepath.circle.fill", "checkmark.circle.fill", "xmark.circle.fill", "trash.circle.fill", "archivebox.fill"]
+        
+        let relationImageColor = [Color.blue, Color.green, Color.pink, Color.yellow, DesignConstants.Colors.defaultIndigoColor]
+        
+        let relationCount = [5,3,67,23,2]
     }
     
 }

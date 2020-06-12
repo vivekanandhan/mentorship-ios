@@ -10,24 +10,28 @@ import SwiftUI
 
 struct Home: View {
     @ObservedObject var homeModel = HomeModel()
+    var relationsData: HomeModel.RelationsListData {
+        return homeModel.relationsListData
+    }
     private let profile = ProfileModel().getProfile()
-    
-    private let relationTitles = ["Pending", "Accepted", "Rejected", "Cancelled", "Completed"]
-    private let relationImages = ["arrow.2.circlepath.circle.fill", "checkmark.circle.fill", "xmark.circle.fill", "trash.circle.fill", "archivebox.fill"]
-    private let relationImageColors = [Color.blue, Color.green, Color.pink, Color.yellow, DesignConstants.Colors.defaultIndigoColor]
     
     var body: some View {
         NavigationView {
             List {
                 //Top space
-                Section {
-                    EmptyView()
-                }
+//                Section {
+//                    EmptyView()
+//                }
                 
                 //Relation dashboard list
                 Section {
-                    ForEach(relationTitles, id: \.self) { title in
-                        Text(title)
+                    ForEach(0..<5) { i in
+                        RelationListCell(
+                            systemImageName: self.relationsData.relationImageName[i],
+                            imageColor: self.relationsData.relationImageColor[i],
+                            title: self.relationsData.relationTitle[i],
+                            count: self.relationsData.relationCount[i]
+                        )
                     }
                     
                 }

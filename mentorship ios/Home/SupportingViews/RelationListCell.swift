@@ -18,6 +18,7 @@ struct RelationListCell: View {
         HStack {
             Image(systemName: systemImageName)
                 .foregroundColor(imageColor)
+                .font(.headline)
             
             Text(title)
             
