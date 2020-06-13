@@ -41,7 +41,8 @@ struct Home: View {
                     ForEach(1..<3) { i in
                         HStack {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.green)
+                                .foregroundColor(DesignConstants.Colors.defaultIndigoColor)
+                                
                                 .padding(.trailing, DesignConstants.Padding.insetListCellFrameExpansion)
                             Text("Task \(i) description")
                                 .font(.subheadline)
