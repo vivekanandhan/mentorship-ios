@@ -22,6 +22,7 @@ final class HomeModel: ObservableObject {
         guard let token = try? KeychainManager.readKeychain() else {
             return
         }
+        print(token)
         
         isLoading = true
         

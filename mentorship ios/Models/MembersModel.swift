@@ -1,9 +1,7 @@
 //
 //  MembersModel.swift
-//  mentorship ios
-//
-//  Created by Yugantar Jain on 07/06/20.
-//  Copyright © 2020 Yugantar Jain. All rights reserved.
+//  Created on 07/06/20.
+//  Created for AnitaB.org Mentorship-iOS 
 //
 
 import SwiftUI
@@ -15,6 +13,7 @@ final class MembersModel: ObservableObject {
     @Published var membersResponseData = [MembersResponseData]()
     @Published var sendRequestResponseData = SendRequestResponseData(message: "")
     @Published var inActivity = false
+    @Published var requestSentSuccesfully = false
     private var cancellable: AnyCancellable?
 
     // MARK: - Functions
@@ -26,7 +25,7 @@ final class MembersModel: ObservableObject {
         self.inActivity = true
 
         // Debug comment: cache policy to be changed later to revalidateCache
-        cancellable = NetworkManager.callAPI(urlString: URLStringConstants.Users.members, httpMethod: "GET", token: token, cachePolicy: .returnCacheDataElseLoad)
+        cancellable = NetworkManager.callAPI(urlString: URLStringConstants.Users.members, token: token, cachePolicy: .returnCacheDataElseLoad)
             .receive(on: RunLoop.main)
             .catch { _ in Just(self.membersResponseData) }
             .sink(receiveCompletion: { completion in
@@ -38,15 +37,15 @@ final class MembersModel: ObservableObject {
             })
     }
 
-    func availabilityString(canBeMentee: Bool, canBeMentor: Bool) -> String {
+    func availabilityString(canBeMentee: Bool, canBeMentor: Bool) -> LocalizedStringKey {
         if canBeMentor && canBeMentor {
-            return "Available to be a Mentor or Mentee"
+            return LocalizableStringConstants.canBeBoth
         } else if canBeMentee {
-            return "Available to be a Mentee"
+            return LocalizableStringConstants.canBeMentee
         } else if canBeMentor {
-            return "Availabe to be a Mentor"
+            return LocalizableStringConstants.canBeMentor
         } else {
-            return "Not available"
+            return LocalizableStringConstants.notAvailable
         }
     }
 
@@ -76,6 +75,9 @@ final class MembersModel: ObservableObject {
             .catch { _ in Just(self.sendRequestResponseData) }
             .sink(receiveCompletion: { _ in
                 self.inActivity = false
+                if NetworkManager.responseCode == 200 {
+                    self.requestSentSuccesfully = true
+                }
             }, receiveValue: { value in
                 self.sendRequestResponseData = value
             })
