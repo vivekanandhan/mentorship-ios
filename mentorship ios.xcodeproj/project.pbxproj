@@ -47,7 +47,6 @@
 		53EB47012488EBAF005656B9 /* LocalizableStringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EB47002488EBAF005656B9 /* LocalizableStringConstants.swift */; };
 		53ED6B0D248D04970055DFF0 /* Members.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED6B0C248D04970055DFF0 /* Members.swift */; };
 		53ED6B0F248D04A80055DFF0 /* MembersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED6B0E248D04A80055DFF0 /* MembersModel.swift */; };
-		53F7F0262493B39A0012D487 /* RelationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7F0252493B39A0012D487 /* RelationList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,7 +115,6 @@
 		53EB47002488EBAF005656B9 /* LocalizableStringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableStringConstants.swift; sourceTree = "<group>"; };
 		53ED6B0C248D04970055DFF0 /* Members.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Members.swift; sourceTree = "<group>"; };
 		53ED6B0E248D04A80055DFF0 /* MembersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersModel.swift; sourceTree = "<group>"; };
-		53F7F0252493B39A0012D487 /* RelationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,7 +250,6 @@
 			children = (
 				538601292493772F00D0E460 /* SupportingViews */,
 				531C806F248AA9BE00AE81EF /* Home.swift */,
-				53F7F0252493B39A0012D487 /* RelationList.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -476,7 +473,6 @@
 				530F44142482752500B1FD0B /* AppDelegate.swift in Sources */,
 				530F441B2482752500B1FD0B /* ContentView.swift in Sources */,
 				536A4C42248E70880027E44D /* MemberDetail.swift in Sources */,
-				53F7F0262493B39A0012D487 /* RelationList.swift in Sources */,
 				535247EC248EED0D0091AD21 /* SendRequest.swift in Sources */,
 				53EB46EA2488CBBF005656B9 /* DesignConstants.swift in Sources */,
 				538E22E9248EBD7900842835 /* MemberDetailCell.swift in Sources */,

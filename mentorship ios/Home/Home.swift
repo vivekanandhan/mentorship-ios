@@ -31,8 +31,20 @@ struct Home: View {
                                 title: self.relationsData.relationTitle[i],
                                 count: self.relationsData.relationCount[i]
                             )
-//                                .padding(.vertical, DesignConstants.Padding.insetListCellFrameExpansion)
                                 .opacity(self.homeModel.isLoading ? 0.5 : 1.0)
+                        }
+                    }
+                }
+                
+                //Tasks done list
+                Section(header: Text("Tasks Done").font(.headline)) {
+                    ForEach(1..<3) { i in
+                        HStack {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.green)
+                                .padding(.trailing, DesignConstants.Padding.insetListCellFrameExpansion)
+                            Text("Task \(i) description")
+                                .font(.subheadline)
                         }
                     }
                 }
