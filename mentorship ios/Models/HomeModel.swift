@@ -165,18 +165,18 @@ final class HomeModel: ObservableObject {
         ]
 
         let relationImageName = [
-            "arrow.2.circlepath.circle.fill",
-            "checkmark.circle.fill",
-            "xmark.circle.fill",
-            "trash.circle.fill",
-            "archivebox.fill"
+            ImageNameConstants.SFSymbolConstants.pending,
+            ImageNameConstants.SFSymbolConstants.accepted,
+            ImageNameConstants.SFSymbolConstants.rejected,
+            ImageNameConstants.SFSymbolConstants.cancelled,
+            ImageNameConstants.SFSymbolConstants.completed
         ]
 
         let relationImageColor: [Color] = [
-            .blue,
-            .green,
-            .pink,
-            .gray,
+            DesignConstants.Colors.pending,
+            DesignConstants.Colors.accepted,
+            DesignConstants.Colors.rejected,
+            DesignConstants.Colors.cancelled,
             DesignConstants.Colors.defaultIndigoColor
         ]
 

@@ -62,16 +62,24 @@ struct DesignConstants {
 
     struct Colors {
         static let defaultIndigoColor = Color(.systemIndigo)
-        static let indigoUIColor = UIColor.systemIndigo
         static let secondaryBackground = Color(.secondarySystemBackground)
-        static let secondaryUIBackground = UIColor.secondarySystemGroupedBackground
         static let formBackgroundColor = Color(.systemGroupedBackground)
         static let subtitleText = Color.secondary
         static let userError = Color.red
+        static let pending = Color.blue
+        static let accepted = Color.green
+        static let rejected = Color.pink
+        static let cancelled = Color.gray
+        
+        static let indigoUIColor = UIColor.systemIndigo
+        static let secondaryUIBackground = UIColor.secondarySystemGroupedBackground
     }
 
     struct Fonts {
         static let userError = Font.subheadline
+        
+        struct Size {
+            static let insetListIcon: CGFloat = 20
+        }
     }
-
 }

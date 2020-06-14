@@ -17,7 +17,7 @@ struct RelationListCell: View {
             Image(systemName: systemImageName)
                 .foregroundColor(imageColor)
                 .padding(.trailing, DesignConstants.Padding.insetListCellFrameExpansion)
-                .font(.system(size: 20))
+                .font(.system(size: DesignConstants.Fonts.Size.insetListIcon))
 
             Text(title)
                 .font(.subheadline)
