@@ -23,13 +23,13 @@ struct Home: View {
                 
                 //Relation dashboard list
                 Section {
-                    ForEach(0 ..< relationsData.relationTitle.count) { i in
+                    ForEach(0 ..< relationsData.relationTitle.count) { index in
                         NavigationLink(destination: Text("Hi")) {
                             RelationListCell(
-                                systemImageName: self.relationsData.relationImageName[i],
-                                imageColor: self.relationsData.relationImageColor[i],
-                                title: self.relationsData.relationTitle[i],
-                                count: self.relationsData.relationCount[i]
+                                systemImageName: self.relationsData.relationImageName[index],
+                                imageColor: self.relationsData.relationImageColor[index],
+                                title: self.relationsData.relationTitle[index],
+                                count: self.relationsData.relationCount[index]
                             )
                                 .opacity(self.homeModel.isLoading ? 0.5 : 1.0)
                         }
@@ -38,13 +38,13 @@ struct Home: View {
                 
                 //Tasks done list
                 Section(header: Text("Tasks Done").font(.headline)) {
-                    ForEach(1..<3) { i in
+                    ForEach(1..<3) { index in
                         HStack {
                             Image(systemName: "checkmark")
                                 .foregroundColor(DesignConstants.Colors.defaultIndigoColor)
                                 
                                 .padding(.trailing, DesignConstants.Padding.insetListCellFrameExpansion)
-                            Text("Task \(i) description")
+                            Text("Task \(index) description")
                                 .font(.subheadline)
                         }
                     }

@@ -9,7 +9,7 @@ import Combine
 
 final class HomeModel: ObservableObject {
     // MARK: - Variables
-    @Published var homeResponseData = HomeResponseData(as_mentor: nil, as_mentee: nil)
+    @Published var homeResponseData = HomeResponseData(asMentor: nil, asMentee: nil)
     @Published var relationsListData = RelationsListData()
     var profileModel = ProfileModel()
     var isLoading: Bool = false
@@ -42,37 +42,37 @@ final class HomeModel: ObservableObject {
     }
     
     func updateCount(homeData: HomeResponseData) {
-        var pendingCount = homeData.as_mentee?.sent?.pending?.count ?? 0
-        pendingCount += homeData.as_mentee?.received?.pending?.count ?? 0
-        pendingCount += homeData.as_mentor?.sent?.pending?.count ?? 0
-        pendingCount += homeData.as_mentor?.received?.pending?.count ?? 0
+        var pendingCount = homeData.asMentee?.sent?.pending?.count ?? 0
+        pendingCount += homeData.asMentee?.received?.pending?.count ?? 0
+        pendingCount += homeData.asMentor?.sent?.pending?.count ?? 0
+        pendingCount += homeData.asMentor?.received?.pending?.count ?? 0
         
-        var acceptedCount = homeData.as_mentee?.sent?.accepted?.count ?? 0
-        acceptedCount += homeData.as_mentee?.received?.accepted?.count ?? 0
-        acceptedCount += homeData.as_mentor?.sent?.accepted?.count ?? 0
-        acceptedCount += homeData.as_mentor?.received?.accepted?.count ?? 0
+        var acceptedCount = homeData.asMentee?.sent?.accepted?.count ?? 0
+        acceptedCount += homeData.asMentee?.received?.accepted?.count ?? 0
+        acceptedCount += homeData.asMentor?.sent?.accepted?.count ?? 0
+        acceptedCount += homeData.asMentor?.received?.accepted?.count ?? 0
         
-        var rejectedCount = homeData.as_mentee?.sent?.rejected?.count ?? 0
-        rejectedCount += homeData.as_mentee?.received?.rejected?.count ?? 0
-        rejectedCount += homeData.as_mentor?.sent?.rejected?.count ?? 0
-        rejectedCount += homeData.as_mentor?.received?.rejected?.count ?? 0
+        var rejectedCount = homeData.asMentee?.sent?.rejected?.count ?? 0
+        rejectedCount += homeData.asMentee?.received?.rejected?.count ?? 0
+        rejectedCount += homeData.asMentor?.sent?.rejected?.count ?? 0
+        rejectedCount += homeData.asMentor?.received?.rejected?.count ?? 0
         
-        var cancelledCount = homeData.as_mentee?.sent?.cancelled?.count ?? 0
-        cancelledCount += homeData.as_mentee?.received?.cancelled?.count ?? 0
-        cancelledCount += homeData.as_mentor?.sent?.cancelled?.count ?? 0
-        cancelledCount += homeData.as_mentor?.received?.cancelled?.count ?? 0
+        var cancelledCount = homeData.asMentee?.sent?.cancelled?.count ?? 0
+        cancelledCount += homeData.asMentee?.received?.cancelled?.count ?? 0
+        cancelledCount += homeData.asMentor?.sent?.cancelled?.count ?? 0
+        cancelledCount += homeData.asMentor?.received?.cancelled?.count ?? 0
         
-        var completedCount = homeData.as_mentee?.sent?.completed?.count ?? 0
-        completedCount += homeData.as_mentee?.received?.completed?.count ?? 0
-        completedCount += homeData.as_mentor?.sent?.completed?.count ?? 0
-        completedCount += homeData.as_mentor?.received?.completed?.count ?? 0
+        var completedCount = homeData.asMentee?.sent?.completed?.count ?? 0
+        completedCount += homeData.asMentee?.received?.completed?.count ?? 0
+        completedCount += homeData.asMentor?.sent?.completed?.count ?? 0
+        completedCount += homeData.asMentor?.received?.completed?.count ?? 0
         
         self.relationsListData.relationCount = [pendingCount, acceptedCount, rejectedCount, cancelledCount, completedCount]
     }
     
     // MARK: - Structures
     struct HomeResponseData: Decodable {
-        let as_mentor: AsMentor?
+        let asMentor: AsMentor?
         struct AsMentor: Decodable {
             let sent: Sent?
             struct Sent: Decodable {
@@ -92,7 +92,7 @@ final class HomeModel: ObservableObject {
             }
         }
         
-        let as_mentee: AsMentee?
+        let asMentee: AsMentee?
         struct AsMentee: Decodable {
             let sent: Sent?
             struct Sent: Decodable {
@@ -111,25 +111,48 @@ final class HomeModel: ObservableObject {
                 let pending: [RequestStructure]?
             }
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case asMentor = "as_mentor"
+            case asMentee = "as_mentee"
+        }
     }
     
     struct RequestStructure: Decodable {
         let id: Int?
-        let action_user_id: Int?
+        let actionUserID: Int?
         let mentor: Mentor
         struct Mentor: Decodable {
             let id: Int?
-            let user_name: String?
+            let userName: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case userName = "user_name"
+            }
         }
         let mentee: Mentee
         struct Mentee: Decodable {
             let id: Int?
-            let user_name: String?
+            let userName: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case userName = "user_name"
+            }
         }
-        let accept_date: Double?
-        let start_date: Double?
-        let end_date: Double?
+        let acceptDate: Double?
+        let startDate: Double?
+        let endDate: Double?
         let notes: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case id, mentor, mentee, notes
+            case actionUserID = "action_user_id"
+            case acceptDate = "accept_date"
+            case startDate = "start_date"
+            case endDate = "end_date"
+        }
     }
     
     struct RelationsListData {
