@@ -12,7 +12,7 @@ struct Home: View {
         return homeModel.relationsListData
     }
     private let profile = ProfileModel().getProfile()
-    
+
     var body: some View {
         NavigationView {
             List {
@@ -20,7 +20,7 @@ struct Home: View {
                 Section {
                     EmptyView()
                 }
-                
+
                 //Relation dashboard list
                 Section {
                     ForEach(0 ..< relationsData.relationTitle.count) { index in
@@ -35,21 +35,21 @@ struct Home: View {
                         }
                     }
                 }
-                
+
                 //Tasks done list
                 Section(header: Text("Tasks Done").font(.headline)) {
                     ForEach(1..<3) { index in
                         HStack {
                             Image(systemName: "checkmark")
                                 .foregroundColor(DesignConstants.Colors.defaultIndigoColor)
-                                
+
                                 .padding(.trailing, DesignConstants.Padding.insetListCellFrameExpansion)
                             Text("Task \(index) description")
                                 .font(.subheadline)
                         }
                     }
                 }
-                
+
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)

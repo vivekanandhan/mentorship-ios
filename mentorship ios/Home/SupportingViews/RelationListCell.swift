@@ -11,19 +11,19 @@ struct RelationListCell: View {
     var imageColor: Color
     var title: String
     var count: Int
-    
+
     var body: some View {
         HStack {
             Image(systemName: systemImageName)
                 .foregroundColor(imageColor)
                 .padding(.trailing, DesignConstants.Padding.insetListCellFrameExpansion)
                 .font(.system(size: 20))
-            
+
             Text(title)
                 .font(.subheadline)
-            
+
             Spacer()
-            
+
             Text(String(count))
                 .font(.subheadline)
         }

@@ -16,7 +16,7 @@ struct SendRequest: View {
     @State private var notes = ""
     @State private var offsetValue: CGFloat = 0
     @Environment(\.presentationMode) var presentationMode
-    
+
     func sendRequest() {
         let myID = ProfileModel().getProfile().id
         let endDateTimestamp = self.endDate.timeIntervalSince1970
@@ -28,7 +28,7 @@ struct SendRequest: View {
         }
         membersModel.sendRequest(menteeID: menteeID, mentorID: mentorID, endDate: endDateTimestamp, notes: notes)
     }
-    
+
     var body: some View {
         NavigationView {
             Form {
@@ -36,7 +36,7 @@ struct SendRequest: View {
                 Section(header: Text("To \(memberName)").font(.title).fontWeight(.heavy)) {
                     EmptyView()
                 }
-                
+
                 //settings
                 Section {
                     Picker(selection: $pickerSelection, label: Text("My Role")) {
@@ -58,7 +58,7 @@ struct SendRequest: View {
                         Text(LocalizableStringConstants.send)
                     }
                 }
-                
+
                 //Activity indicator or error text
                 if membersModel.inActivity || !(membersModel.sendRequestResponseData.message ?? "").isEmpty {
                     Section {

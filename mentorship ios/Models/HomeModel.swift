@@ -14,16 +14,16 @@ final class HomeModel: ObservableObject {
     var profileModel = ProfileModel()
     var isLoading: Bool = false
     private var cancellable: AnyCancellable?
-    
+
     // MARK: - Functions
     init() {
         guard let token = try? KeychainManager.readKeychain() else {
             return
         }
         print(token)
-        
+
         isLoading = true
-        
+
         cancellable = NetworkManager.callAPI(urlString: URLStringConstants.Users.home, token: token)
             .receive(on: RunLoop.main)
             .catch { _ in Just(self.homeResponseData) }
@@ -40,36 +40,36 @@ final class HomeModel: ObservableObject {
                 self.isLoading = false
             }
     }
-    
+
     func updateCount(homeData: HomeResponseData) {
         var pendingCount = homeData.asMentee?.sent?.pending?.count ?? 0
         pendingCount += homeData.asMentee?.received?.pending?.count ?? 0
         pendingCount += homeData.asMentor?.sent?.pending?.count ?? 0
         pendingCount += homeData.asMentor?.received?.pending?.count ?? 0
-        
+
         var acceptedCount = homeData.asMentee?.sent?.accepted?.count ?? 0
         acceptedCount += homeData.asMentee?.received?.accepted?.count ?? 0
         acceptedCount += homeData.asMentor?.sent?.accepted?.count ?? 0
         acceptedCount += homeData.asMentor?.received?.accepted?.count ?? 0
-        
+
         var rejectedCount = homeData.asMentee?.sent?.rejected?.count ?? 0
         rejectedCount += homeData.asMentee?.received?.rejected?.count ?? 0
         rejectedCount += homeData.asMentor?.sent?.rejected?.count ?? 0
         rejectedCount += homeData.asMentor?.received?.rejected?.count ?? 0
-        
+
         var cancelledCount = homeData.asMentee?.sent?.cancelled?.count ?? 0
         cancelledCount += homeData.asMentee?.received?.cancelled?.count ?? 0
         cancelledCount += homeData.asMentor?.sent?.cancelled?.count ?? 0
         cancelledCount += homeData.asMentor?.received?.cancelled?.count ?? 0
-        
+
         var completedCount = homeData.asMentee?.sent?.completed?.count ?? 0
         completedCount += homeData.asMentee?.received?.completed?.count ?? 0
         completedCount += homeData.asMentor?.sent?.completed?.count ?? 0
         completedCount += homeData.asMentor?.received?.completed?.count ?? 0
-        
+
         self.relationsListData.relationCount = [pendingCount, acceptedCount, rejectedCount, cancelledCount, completedCount]
     }
-    
+
     // MARK: - Structures
     struct HomeResponseData: Decodable {
         let asMentor: AsMentor?
@@ -91,7 +91,7 @@ final class HomeModel: ObservableObject {
                 let pending: [RequestStructure]?
             }
         }
-        
+
         let asMentee: AsMentee?
         struct AsMentee: Decodable {
             let sent: Sent?
@@ -111,13 +111,13 @@ final class HomeModel: ObservableObject {
                 let pending: [RequestStructure]?
             }
         }
-        
+
         enum CodingKeys: String, CodingKey {
             case asMentor = "as_mentor"
             case asMentee = "as_mentee"
         }
     }
-    
+
     struct RequestStructure: Decodable {
         let id: Int?
         let actionUserID: Int?
@@ -125,7 +125,7 @@ final class HomeModel: ObservableObject {
         struct Mentor: Decodable {
             let id: Int?
             let userName: String?
-            
+
             enum CodingKeys: String, CodingKey {
                 case id
                 case userName = "user_name"
@@ -135,7 +135,7 @@ final class HomeModel: ObservableObject {
         struct Mentee: Decodable {
             let id: Int?
             let userName: String?
-            
+
             enum CodingKeys: String, CodingKey {
                 case id
                 case userName = "user_name"
@@ -145,7 +145,7 @@ final class HomeModel: ObservableObject {
         let startDate: Double?
         let endDate: Double?
         let notes: String?
-        
+
         enum CodingKeys: String, CodingKey {
             case id, mentor, mentee, notes
             case actionUserID = "action_user_id"
@@ -154,7 +154,7 @@ final class HomeModel: ObservableObject {
             case endDate = "end_date"
         }
     }
-    
+
     struct RelationsListData {
         let relationTitle = [
             "Pending Requests",
@@ -163,7 +163,7 @@ final class HomeModel: ObservableObject {
             "Cancelled Relations",
             "Completed Relations"
         ]
-        
+
         let relationImageName = [
             "arrow.2.circlepath.circle.fill",
             "checkmark.circle.fill",
@@ -171,7 +171,7 @@ final class HomeModel: ObservableObject {
             "trash.circle.fill",
             "archivebox.fill"
         ]
-        
+
         let relationImageColor: [Color] = [
             .blue,
             .green,
@@ -179,8 +179,8 @@ final class HomeModel: ObservableObject {
             .gray,
             DesignConstants.Colors.defaultIndigoColor
         ]
-        
+
         var relationCount = [0, 0, 0, 0, 0]
     }
-    
+
 }
